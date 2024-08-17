@@ -38,7 +38,7 @@ In **Gamer Mode**, AIML operates in the background, analyzing your gameplay in r
 - python gui/main.py
 ```
 
---
+---
 
 ## 🛠️ How It Works
 
