@@ -70,6 +70,9 @@ In **Gamer Mode**, AIML operates in the background, analyzing your gameplay in r
 
 [.] Clear Console: Use the "Clear" button to clear the mini-console messages when the assist is not active.
 
+---
+## 📸 Screenshots
+
 <div align="center">
   <img src="https://i.imgur.com/rNwgWCQ.png" alt="AIML Screenshot" style="border-radius: 10px; width: 80%;">
   <img src="https://i.imgur.com/UrnwH97.png" alt="AIML Screenshot" style="border-radius: 10px; width: 80%;">
