@@ -50,7 +50,8 @@ In **Gamer Mode**, AIML operates in the background, analyzing your gameplay in r
 
 #### - 3. Aim Assist: Once characters are detected, AIML adjusts your aim to target them accurately.
 
---
+---
+
 
 ## 🚀 Features
 
@@ -60,7 +61,8 @@ In **Gamer Mode**, AIML operates in the background, analyzing your gameplay in r
 
 [] Real-Time Feedback: Displays detected characters in a console and a mini-console within the GUI.
 
---
+---
+
 
 ## 🎯 Usage
 
@@ -71,6 +73,8 @@ In **Gamer Mode**, AIML operates in the background, analyzing your gameplay in r
 <div align="center">
   <img src="https://i.imgur.com/rNwgWCQ.png" alt="AIML Screenshot" style="border-radius: 10px; width: 80%;">
 </div>
+
+---
 
 <div align="center">
   <h3>💻 Developed by Mystic</h3>
