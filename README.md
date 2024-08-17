@@ -72,8 +72,6 @@ In **Gamer Mode**, AIML operates in the background, analyzing your gameplay in r
   <img src="https://i.imgur.com/rNwgWCQ.png" alt="AIML Screenshot" style="border-radius: 10px; width: 80%;">
 </div>
 
-## Thanks
---
 <div align="center">
   <h3>💻 Developed by Mystic</h3>
   <a href="https://x.com/TheMystic02" style="text-decoration: none; color: #00ff00;">
