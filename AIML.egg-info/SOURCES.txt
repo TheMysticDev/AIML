@@ -1,0 +1,15 @@
+setup.py
+AIML.egg-info/PKG-INFO
+AIML.egg-info/SOURCES.txt
+AIML.egg-info/dependency_links.txt
+AIML.egg-info/entry_points.txt
+AIML.egg-info/requires.txt
+AIML.egg-info/top_level.txt
+detection/__init__.py
+detection/object_detector.py
+detection/utils.py
+gui/__init__.py
+gui/main.py
+gui/ui.py
+tests/__init__.py
+tests/test_detection.py
