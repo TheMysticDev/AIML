@@ -6,7 +6,7 @@ import numpy as np
 from detection.object_detector import ObjectDetector
 import sys
 from pynput import mouse
-from pynput.mouse import Controller  # Importa Controller correctamente
+from pynput.mouse import Controller 
 
 class AIMLApp(QWidget):
     def __init__(self):
@@ -15,9 +15,8 @@ class AIMLApp(QWidget):
         self.detector = ObjectDetector()
         self.aim_assist_active = False
         self.right_click_held = False
-        self.mouse_controller = Controller()  # Instancia Controller correctamente
+        self.mouse_controller = Controller() 
 
-        # Configuración del listener global del mouse
         self.mouse_listener = mouse.Listener(on_click=self.on_click)
         self.mouse_listener.start()
 
@@ -44,38 +43,35 @@ class AIMLApp(QWidget):
 
         self.setLayout(layout)
 
-        # Timer para procesar periódicamente la pantalla
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.process_frame)
-        self.timer.start(1000)  # Procesa cada segundo
+        self.timer.start(1000)  
 
     def toggle_aim_assist(self):
         self.aim_assist_active = not self.aim_assist_active
         if self.aim_assist_active:
             self.aim_assist_button.setText('Stop AIM Assist')
             self.status_label.setText('AIM Assist ON')
-            self.clear_button.setEnabled(False)  # Desactiva el botón de clear mientras el aim assist está activo
+            self.clear_button.setEnabled(False) 
         else:
             self.aim_assist_button.setText('Start AIM Assist')
             self.status_label.setText('AIM Assist OFF')
-            self.clear_button.setEnabled(True)  # Activa el botón de clear cuando el aim assist está inactivo
+            self.clear_button.setEnabled(True)  
 
     def process_frame(self):
         if self.aim_assist_active and self.right_click_held:
-            # Captura la pantalla
+
             screen = ImageGrab.grab()
             frame = np.array(screen)
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             
-            # Procesa el frame con el detector de objetos
             detections = self.detector.detect(frame)
             if detections:
-                # Obtén la primera detección (suponiendo que es el objetivo)
+
                 x, y, w, h = detections[0]
                 target_x = x + w // 2
                 target_y = y + h // 2
-
-                # Mueve el mouse hacia el objetivo
+                
                 screen_width, screen_height = screen.size
                 current_x, current_y = self.mouse_controller.position
                 move_x = target_x - (screen_width // 2)
