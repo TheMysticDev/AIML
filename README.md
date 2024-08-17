@@ -38,7 +38,7 @@ In **Gamer Mode**, AIML operates in the background, analyzing your gameplay in r
 - python gui/main.py
 ```
 
---
+---
 
 ## 🛠️ How It Works
 
@@ -50,7 +50,8 @@ In **Gamer Mode**, AIML operates in the background, analyzing your gameplay in r
 
 #### - 3. Aim Assist: Once characters are detected, AIML adjusts your aim to target them accurately.
 
---
+---
+
 
 ## 🚀 Features
 
@@ -60,7 +61,8 @@ In **Gamer Mode**, AIML operates in the background, analyzing your gameplay in r
 
 [] Real-Time Feedback: Displays detected characters in a console and a mini-console within the GUI.
 
---
+---
+
 
 ## 🎯 Usage
 
@@ -72,11 +74,15 @@ In **Gamer Mode**, AIML operates in the background, analyzing your gameplay in r
   <img src="https://i.imgur.com/rNwgWCQ.png" alt="AIML Screenshot" style="border-radius: 10px; width: 80%;">
 </div>
 
---
+---
 
 <div align="center">
-  <h3>💻 Developed by Mystic</h3>
+  <img src="https://i.imgur.com/37BONmd.gif" alt="DinosaurDancingGIFy" width="140">
+  <p>Thanks for visiting AIML Project! Raaawr! 🦖</p>
+</div>
+
+<div align="center">
   <a href="https://x.com/TheMystic02" style="text-decoration: none; color: #00ff00;">
-    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" width="30">
+    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" width="120">
   </a>
 </div>
