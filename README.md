@@ -77,7 +77,7 @@ In **Gamer Mode**, AIML operates in the background, analyzing your gameplay in r
 ---
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/fa454a29-a053-4df5-9a87-382a6ca2b76" alt="DinosaurDancingGIFy" width="110">
+  <img src=https://i.imgur.com/kqoFz9R.mp4" alt="DinosaurDancingGIFy" width="110">
   <p>Thanks for visiting AIML Project! Raaawr! 🦖</p>
 </div>
 
