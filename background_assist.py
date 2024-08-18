@@ -1,32 +1,42 @@
-import time
+import cv2
 import numpy as np
 from PIL import ImageGrab
-import cv2
 from detection.object_detector import ObjectDetector
-from PyQt5.QtCore import QThread, pyqtSignal
 
-class BackgroundAssistThread(QThread):
-    detection_signal = pyqtSignal(list)
-
+class BackgroundAssist:
     def __init__(self):
-        super().__init__()
         self.detector = ObjectDetector()
-        self.running = True
+        self.fov_radius = 100 
+        self.fov_active = False
 
-    def run(self):
-        while self.running:
-            # Capture the screen
+    def update_fov(self, radius):
+        self.fov_radius = radius
+
+    def toggle_fov(self, state):
+        self.fov_active = state
+
+    def process(self):
+        while True:
             screen = ImageGrab.grab()
             frame = np.array(screen)
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            
-            # Detect characters
-            detections = self.detector.detect(frame)
-            if detections:
-                self.detection_signal.emit(detections)
-            
-            time.sleep(1)  # Adjust the sleep time as needed
 
-    def stop(self):
-        self.running = False
-        self.wait()
+            if self.fov_active:
+                height, width = frame.shape[:2]
+                center = (width // 2, height // 2)
+                cv2.circle(frame, center, self.fov_radius, (0, 255, 0), 2)
+
+            detections = self.detector.detect(frame, self.fov_radius)
+            if detections:
+                print(f"Detected characters: {detections}")
+
+            cv2.imshow('AIM Assist', frame)
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+        cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    assist = BackgroundAssist()
+    assist.process()
