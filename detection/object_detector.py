@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-
+#TheMagic
 class ObjectDetector:
     def __init__(self):
         pass

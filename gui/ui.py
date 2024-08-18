@@ -7,7 +7,7 @@ from detection.object_detector import ObjectDetector
 import sys
 from pynput import mouse
 from pynput.mouse import Controller 
-
+#TheMagic
 class AIMLApp(QWidget):
     def __init__(self):
         super().__init__()
