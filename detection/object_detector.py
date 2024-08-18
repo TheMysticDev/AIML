@@ -9,30 +9,34 @@ class ObjectDetector:
         height, width = frame.shape[:2]
         center_x, center_y = width // 2, height // 2
 
+        # Convertir a escala de grises
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        _, thresh = cv2.threshold(gray_frame, 200, 255, cv2.THRESH_BINARY)
+        # Usar la detección de bordes con Canny
+        edges = cv2.Canny(gray_frame, 30, 100)  # Ajusta estos valores según sea necesario
 
-        contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        # Encontrar contornos en la imagen de bordes
+        contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         detections = []
         for contour in contours:
             area = cv2.contourArea(contour)
-            if area > 1000: 
+            if area > 500:  # Ajusta el umbral según el tamaño esperado de los personajes
                 x, y, w, h = cv2.boundingRect(contour)
                 obj_center_x = x + w // 2
                 obj_center_y = y + h // 2
 
+                # Asegúrate de que el área detectada es relevante para un personaje
                 if self.is_character(x, y, w, h):
                     detections.append((x, y, w, h))
 
         return detections
 
     def is_character(self, x, y, w, h):
-
-        min_width = 30
-        max_width = 200
-        min_height = 60
-        max_height = 400
+        # Ajusta estos valores según el tamaño esperado de los personajes
+        min_width = 10
+        max_width = 300
+        min_height = 20
+        max_height = 500
 
         return min_width < w < max_width and min_height < h < max_height

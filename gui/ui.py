@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QTextEdit, QSlider
 from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QPainter, QPen, QColor, QLinearGradient, QBrush
+from PyQt5.QtGui import QPainter, QPen, QColor
 import ctypes
 import numpy as np
 import cv2
@@ -162,14 +162,10 @@ class AIMLApp(QWidget):
 
     def update_fov(self, value):
         self.fov = value
-        print(f"FOV updated to: {self.fov}")
         self.fov_overlay.update_fov(self.fov)
 
     def process_frame(self):
         if self.aim_assist_active and self.is_right_click_pressed():
-            print("Processing frame for AIM Assist...")
-            self.log_box.append("Processing frame for AIM Assist...")
-
             screen = ImageGrab.grab()
             frame = np.array(screen)
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -178,40 +174,35 @@ class AIMLApp(QWidget):
                 self.center_x = frame.shape[1] // 2
                 self.center_y = frame.shape[0] // 2
 
-            fov_frame = frame[self.center_y - self.fov:self.center_y + self.fov, self.center_x - self.fov:self.center_x + self.fov]
-
-            detections = self.detector.detect(fov_frame)
+            detections = self.detector.detect(frame)
             if detections:
-                self.locked_target = self.get_closest_target(detections)
+                # Ordenar detecciones por proximidad al centro
+                detections.sort(key=lambda d: np.linalg.norm(np.array([d[0] + d[2] // 2, d[1] + d[3] // 2]) - np.array([self.center_x, self.center_y])))
+                target = detections[0]
+                self.locked_target = (target[0] + target[2] // 2, target[1] + target[3] // 2)
+
+                # Mostrar el objetivo bloqueado en la interfaz gráfica
                 if self.locked_target:
-                    self.move_camera_to_target()
-                    message = f"Locked onto target at: {self.locked_target}"
-                    print(message)
-                    self.log_box.append(message)
+                    self.log_box.append(f"Locked target: {self.locked_target}")
+                    # Aquí agregar la lógica para mover el mouse al objetivo bloqueado
+                    ctypes.windll.user32.SetCursorPos(int(self.locked_target[0]), int(self.locked_target[1]))
 
-    def get_closest_target(self, detections):
-        if self.center_x is None or self.center_y is None:
-            return None
-        return (self.center_x, self.center_y)
-
-    def move_camera_to_target(self):
-        if self.center_x is None or self.center_y is None:
-            return
-        ctypes.windll.user32.mouse_event(0x0001, 0, 0, 0, 0)
-
-    def is_right_click_pressed(self):
-        return self.right_click_pressed
-
-    def on_click(self, x, y, button, pressed):
-        if button == mouse.Button.right:
-            self.right_click_pressed = pressed
+            # Mostrar la ventana de log
+            self.log_box.append("No characters detected")
 
     def clear_log(self):
         if not self.aim_assist_active:
             self.log_box.clear()
 
-if __name__ == "__main__":
+    def on_click(self, x, y, button, pressed):
+        if button == mouse.Button.right:
+            self.right_click_pressed = pressed
+
+    def is_right_click_pressed(self):
+        return self.right_click_pressed
+
+if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = AIMLApp()
-    window.show()
+    ex = AIMLApp()
+    ex.show()
     sys.exit(app.exec_())

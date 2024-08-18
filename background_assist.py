@@ -1,13 +1,30 @@
 import cv2
 import numpy as np
-from PIL import ImageGrab
+import mss
+import pygetwindow as gw
 from detection.object_detector import ObjectDetector
 
 class BackgroundAssist:
     def __init__(self):
         self.detector = ObjectDetector()
-        self.fov_radius = 100  # Default radius for FOV circle
+        self.fov_radius = 100  
         self.fov_active = False
+        self.sct = mss.mss()
+        self.window_title = "Your Game Title Here" 
+        self.monitor = self.get_window_monitor()
+
+    def get_window_monitor(self):
+        try:
+            window = gw.getWindowsWithTitle(self.window_title)[0]
+            return {
+                "top": window.top,
+                "left": window.left,
+                "width": window.width,
+                "height": window.height
+            }
+        except IndexError:
+            print(f"Window with title '{self.window_title}' not found.")
+            return {"top": 0, "left": 0, "width": 1920, "height": 1080}  # Default monitor dimensions
 
     def update_fov(self, radius):
         self.fov_radius = radius
@@ -17,9 +34,9 @@ class BackgroundAssist:
 
     def process(self):
         while True:
-            screen = ImageGrab.grab()
+            screen = self.sct.grab(self.monitor)
             frame = np.array(screen)
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            frame = cv2.cvtColor(frame, cv2.COLOR_RGBA2RGB)
 
             if self.fov_active:
                 height, width = frame.shape[:2]
