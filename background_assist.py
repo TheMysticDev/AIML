@@ -6,7 +6,7 @@ from detection.object_detector import ObjectDetector
 class BackgroundAssist:
     def __init__(self):
         self.detector = ObjectDetector()
-        self.fov_radius = 100 
+        self.fov_radius = 100  # Default radius for FOV circle
         self.fov_active = False
 
     def update_fov(self, radius):
