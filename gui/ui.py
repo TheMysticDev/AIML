@@ -176,18 +176,14 @@ class AIMLApp(QWidget):
 
             detections = self.detector.detect(frame)
             if detections:
-                # Ordenar detecciones por proximidad al centro
                 detections.sort(key=lambda d: np.linalg.norm(np.array([d[0] + d[2] // 2, d[1] + d[3] // 2]) - np.array([self.center_x, self.center_y])))
                 target = detections[0]
                 self.locked_target = (target[0] + target[2] // 2, target[1] + target[3] // 2)
 
-                # Mostrar el objetivo bloqueado en la interfaz gráfica
                 if self.locked_target:
                     self.log_box.append(f"Locked target: {self.locked_target}")
-                    # Aquí agregar la lógica para mover el mouse al objetivo bloqueado
                     ctypes.windll.user32.SetCursorPos(int(self.locked_target[0]), int(self.locked_target[1]))
 
-            # Mostrar la ventana de log
             self.log_box.append("No characters detected")
 
     def clear_log(self):

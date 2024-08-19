@@ -10,7 +10,7 @@ class BackgroundAssist:
         self.fov_radius = 100  
         self.fov_active = False
         self.sct = mss.mss()
-        self.window_title = "Your Game Title Here" 
+        self.window_title = "FOV" 
         self.monitor = self.get_window_monitor()
 
     def get_window_monitor(self):
@@ -24,8 +24,8 @@ class BackgroundAssist:
             }
         except IndexError:
             print(f"Window with title '{self.window_title}' not found.")
-            return {"top": 0, "left": 0, "width": 1920, "height": 1080}  # Default monitor dimensions
-
+            return {"top": 0, "left": 0, "width": 1920, "height": 1080} 
+        
     def update_fov(self, radius):
         self.fov_radius = radius
 
